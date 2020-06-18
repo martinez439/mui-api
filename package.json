@@ -1,0 +1,28 @@
+{
+  "name": "qbapi",
+  "version": "1.0.0",
+  "description": "QB Backend",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "server": "nodemon",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Michael M",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.3",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "intuit-oauth": "^3.0.1",
+    "ngrok": "^3.2.7",
+    "nodemon": "^2.0.4",
+    "path": "^0.12.7",
+    "query-string": "^6.13.1",
+    "snyk": "^1.337.0"
+  }
+}
