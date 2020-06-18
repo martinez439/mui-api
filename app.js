@@ -90,6 +90,7 @@ app.get('/callback', function (req, res) {
     .then(function (authResponse) {
       oauth2_token_json = JSON.stringify(authResponse.getJson(), null, 2);
       res.redirect(uri +'?access_token=' + oauth2_token_json)
+      console.log(oauth2_token_json)
     })
     .catch(function (e) {
       console.error(e);
@@ -239,18 +240,18 @@ app.post('/invoice', urlencodedParser, function (req, res) {
 });
 
 */
-
+/*
 //Create Customer
 app.post('/customer', urlencodedParser, function (req, res) {
   const companyID = oauthClient.getToken().realmId;
-  const token = getToken();
+  const token = oauth2_token_json;
   const url =
   oauthClient.environment == 'sandbox'
     ? OAuthClient.environment.sandbox
     : OAuthClient.environment.production;
   const config = {
       headers: { 
-        'Authorization': `Bearer ${token}` }
+        'Authorization': `Bearer ` + `${token}`.toString('base64') }
   };
 
   axios.post(`${url}v3/company/${companyID}/customer`, { 
@@ -270,17 +271,32 @@ app.post('/customer', urlencodedParser, function (req, res) {
       });
 
 });
+*/
 
+//Create Customer
+app.post('/customer', urlencodedParser, function (req, res) {
+  const companyID = oauthClient.getToken().realmId;
+const body = {
+  DisplayName: req.body.customer,
+  CompanyName: req.body.notes
+};
 
-
-
-/*"BillAddr": {
-  "Line1": req.body.Line1,
-  "City": req.body.City,
-  "Country": req.body.Country,
-  "PostalCode": req.body.PostalCode
-  },
-  */
+oauthClient
+  .makeApiCall({
+    url: `https://sandbox-quickbooks.api.intuit.com/v3/company/${companyID}/customer?minorversion=51`,
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  })
+  .then(function (response) {
+    console.log('The API response is  : ' + response);
+  })
+  .catch(function (e) {
+    console.log('The error is ' + JSON.stringify(e));
+  });
+})
 
 
 //Receivables
