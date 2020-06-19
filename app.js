@@ -299,6 +299,45 @@ oauthClient
 })
 
 
+
+app.post('/createinvoice', urlencodedParser, function (req, res) {
+  const companyID = oauthClient.getToken().realmId;
+  const body = {
+      Line: [
+        {
+          DetailType: "SalesItemLineDetail", 
+          Amount: '5000.0', 
+          SalesItemLineDetail: {
+            ItemRef: {
+              name: "Services", 
+              value: "1"
+            }
+          }
+        }
+      ], 
+      CustomerRef: {
+        value: "1"
+      }
+    };
+    
+
+oauthClient
+  .makeApiCall({
+    url: `https://sandbox-quickbooks.api.intuit.com/v3/company/${companyID}/invoice?minorversion=51`,
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  })
+  .then(function (response) {
+    console.log('The API response is  : ' + response);
+  })
+  .catch(function (e) {
+    console.log('The error is ' + JSON.stringify(e));
+  });
+})
+
 //Receivables
 
 app.get('/receive', function (req, res) {
