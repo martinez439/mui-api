@@ -306,10 +306,10 @@ app.post('/createinvoice', urlencodedParser, function (req, res) {
       Line: [
         {
           DetailType: "SalesItemLineDetail", 
-          Amount: '5000.0', 
+          Amount: req.body.amount, 
           SalesItemLineDetail: {
             ItemRef: {
-              name: "Services", 
+              name: req.body.service, 
               value: "1"
             }
           }
@@ -331,7 +331,7 @@ oauthClient
     body: JSON.stringify(body),
   })
   .then(function (response) {
-    console.log('The API response is  : ' + response);
+    console.log('The API response is  : ' + JSON.stringify(response));
   })
   .catch(function (e) {
     console.log('The error is ' + JSON.stringify(e));
