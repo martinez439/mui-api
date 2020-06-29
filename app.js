@@ -14,6 +14,7 @@ const cors = require('cors')
 const OAuthClient = require('intuit-oauth');
 const axios = require('axios');
 const bodyParser = require('body-parser');
+const mongoose = require("mongoose");
 const ngrok = process.env.NGROK_ENABLED === 'true' ? require('ngrok') : null;
 //const queryString = require('query-string');
 
@@ -27,6 +28,15 @@ app.use(express.static(path.join(__dirname, '/public')));
 
 //app.set('view engine', 'html');
 app.use(bodyParser.json());
+
+
+const uri = process.env.ATLAS_URI;
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology:true });
+
+const connection = mongoose.connection;
+connection.once("open", () => {
+  console.log("MongoDB database connection established successfully");
+});
 
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
@@ -53,12 +63,9 @@ app.get('/', function (req, res) {
 */
 
 
- 
-
 
  
- 
-  app.get('/login', urlencodedParser, function (req, res) {
+app.get('/login', urlencodedParser, function (req, res) {
     oauthClient = new OAuthClient({
       clientId: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
@@ -370,6 +377,10 @@ app.get('/disconnect', function (req, res) {
   });
   res.redirect(authUri);
 });
+
+const remindersRouter = require("./routes/reminders");
+app.use("/reminders", remindersRouter);
+
 
 /**
  * Start server on HTTP (will use ngrok for HTTPS forwarding)
