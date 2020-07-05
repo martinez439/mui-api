@@ -7,7 +7,7 @@ router.route('/').get((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 router.route('/unchecked').get((req, res) => {
-  NewReminder.find()
+  NewReminder.find({isComplete: true})
     .then(reminders => res.json(reminders))
     .catch(err => res.status(400).json('Error: ' + err));
 });
@@ -21,6 +21,19 @@ router.route('/add').post((req, res) => {
   newReminder.save()
     .then(() => res.json('Reminder added!'))
     .catch(err => res.status(400).json('Error: ' + err));
+});
+
+
+router.route("/:id").patch((req, res) => {
+  NewReminder.findByIdAndUpdate(req.params.id, req.body)
+    .then(() => res.json("Reminder updated to complete status."))
+    .catch(err => res.status(400).json("Error: " + err));
+});
+
+router.route("/:id").delete((req, res) => {
+  NewReminder.findByIdAndDelete(req.params.id)
+    .then(() => res.json("Reminder deleted."))
+    .catch(err => res.status(400).json("Error: " + err));
 });
 
 module.exports = router;

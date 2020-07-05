@@ -307,6 +307,31 @@ oauthClient
 
 
 
+app.get('/customers', function (req, res) {
+  const companyID = oauthClient.getToken().realmId;
+
+  const url =
+    oauthClient.environment == 'sandbox'
+      ? OAuthClient.environment.sandbox
+      : OAuthClient.environment.production;
+
+  const select = `select * from Customer`;
+
+  oauthClient
+    .makeApiCall({ url: `https://sandbox-quickbooks.api.intuit.com/v3/company/${companyID}/query?query=${select}&minorversion=51`})
+    .then(function (authResponse) {
+     console.log(`The response for API call is :${JSON.stringify(authResponse)}`);
+      res.send(JSON.parse(authResponse.text()));
+    })
+    .catch(function (e) {
+      console.error(e);
+    });
+});
+
+
+
+
+
 app.post('/createinvoice', urlencodedParser, function (req, res) {
   const companyID = oauthClient.getToken().realmId;
   const body = {
