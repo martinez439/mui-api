@@ -306,7 +306,7 @@ oauthClient
 })
 
 
-
+// Customers List
 app.get('/customers', function (req, res) {
   const companyID = oauthClient.getToken().realmId;
 
@@ -330,7 +330,7 @@ app.get('/customers', function (req, res) {
 
 
 
-
+//Create a new invoice
 
 app.post('/createinvoice', urlencodedParser, function (req, res) {
   const companyID = oauthClient.getToken().realmId;
@@ -369,6 +369,30 @@ oauthClient
     console.log('The error is ' + JSON.stringify(e));
   });
 })
+
+
+// Invoice List
+
+app.get('/invoices', function (req, res) {
+  const companyID = oauthClient.getToken().realmId;
+
+  const url =
+    oauthClient.environment == 'sandbox'
+      ? OAuthClient.environment.sandbox
+      : OAuthClient.environment.production;
+
+  const select = `select * from Invoice`;
+
+  oauthClient
+    .makeApiCall({ url: `https://sandbox-quickbooks.api.intuit.com/v3/company/${companyID}/query?query=${select}&minorversion=51`})
+    .then(function (authResponse) {
+     console.log(`The response for API call is :${JSON.stringify(authResponse)}`);
+      res.send(JSON.parse(authResponse.text()));
+    })
+    .catch(function (e) {
+      console.error(e);
+    });
+});
 
 //Receivables
 
