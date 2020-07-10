@@ -29,7 +29,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
   // Set static folder
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+    res.sendFile(path.resolve(__dirname, "public", "build", "index.html"));
   });
 }
 app.use(bodyParser.json());
@@ -452,18 +452,3 @@ const server = app.listen(process.env.PORT || 8000, () => {
   }
 });
 
-/**
- * Optional : If NGROK is enabled
- */
-if (ngrok) {
-  console.log('NGROK Enabled');
-  ngrok
-    .connect({ addr: process.env.PORT || 8000 })
-    .then((url) => {
-      redirectUri = `${url}/callback`;
-
-    })
-    .catch(() => {
-      process.exit(1);
-    });
-}
