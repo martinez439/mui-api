@@ -24,9 +24,9 @@ app.use(cors())
  */
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '/public')));
-//app.engine('html', require('ejs').renderFile);
+app.engine('html', require('ejs').renderFile);
 
-//app.set('view engine', 'html');
+app.set('view engine', 'html');
 app.use(bodyParser.json());
 
 
