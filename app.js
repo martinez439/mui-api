@@ -23,10 +23,15 @@ app.use(cors())
  * Configure View and Handlebars
  */
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, '/public')));
-app.engine('html', require('ejs').renderFile);
 
-app.set('view engine', 'html');
+//serve static assets if in production
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+  // Set static folder
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 app.use(bodyParser.json());
 
 
