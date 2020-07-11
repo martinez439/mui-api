@@ -1,6 +1,6 @@
 'use strict';
 
-require('dotenv').config();
+require('dotenv').config({ path: '.env' });
 
 /**
  * Require the dependencies
@@ -19,12 +19,11 @@ const ngrok = process.env.NGROK_ENABLED === 'true' ? require('ngrok') : null;
 //const queryString = require('query-string');
 
 app.use(cors())
-/**
- * Configure View and Handlebars
- */
+app.use(express.static(path.join(__dirname, '/public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //serve static assets if in production
+/*
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
   // Set static folder
@@ -32,6 +31,7 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "public", "build", "index.html"));
   });
 }
+*/
 app.use(bodyParser.json());
 
 
