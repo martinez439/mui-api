@@ -1,5 +1,8 @@
 const router = require('express').Router();
 let NewReminder = require('../models/reminderModel');
+const cors = require('cors')
+
+app.use(cors())
 
 router.route('/').get((req, res, next) => {
   NewReminder.find({isComplete: false})
