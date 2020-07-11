@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const cors = require('cors')
 let NewReminder = require('../models/reminderModel');
 
 
