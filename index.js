@@ -45,7 +45,7 @@ connection.once("open", () => {
   console.log("MongoDB database connection established successfully");
 });
 
-//const urlencodedParser = bodyParser.urlencoded({ extended: false });
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 /**
  * App Variables
