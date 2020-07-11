@@ -22,7 +22,9 @@ const ngrok = process.env.NGROK_ENABLED === 'true' ? require('ngrok') : null;
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.options('*', cors())
 app.use(cors())
+
 
 //serve static assets if in production
 /*
