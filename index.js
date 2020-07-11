@@ -23,8 +23,20 @@ app.use(express.static(path.join(__dirname, '/public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(cors({ origin: 'http://localhost:3000'}))
+// Set up a whitelist and check against it:
+const whitelist = ['http://localhost:3000', 'https://pacific-wildwood-91690.herokuapp.com/']
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
 
+// Then pass them to cors:
+app.use(cors(corsOptions));
 
 //serve static assets if in production
 /*
