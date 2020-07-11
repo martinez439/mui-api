@@ -18,9 +18,11 @@ const mongoose = require("mongoose");
 const ngrok = process.env.NGROK_ENABLED === 'true' ? require('ngrok') : null;
 //const queryString = require('query-string');
 
-app.use(cors())
+
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(cors())
 
 //serve static assets if in production
 /*
@@ -32,7 +34,7 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 */
-app.use(bodyParser.json());
+
 
 
 const uri = process.env.ATLAS_URI;
@@ -43,7 +45,7 @@ connection.once("open", () => {
   console.log("MongoDB database connection established successfully");
 });
 
-const urlencodedParser = bodyParser.urlencoded({ extended: false });
+//const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 /**
  * App Variables
