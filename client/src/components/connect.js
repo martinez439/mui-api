@@ -14,9 +14,10 @@ class ConnectQb extends Component {
            
                 
                 <button onClick={() => {(
-              'https://pacific-wildwood-91690.herokuapp.com/login'); 
+                  axios
+                  .get('https://pacific-wildwood-91690.herokuapp.com/login')
             
-                }}
+                )}}
                 style={{padding: '8px', 
                 'fontSize': '20px', 
                 'marginTop': '1rem', 
@@ -24,7 +25,7 @@ class ConnectQb extends Component {
               Connect QuickBooks</button>
         
             </div>
-            </Grid>
+            </Grid> 
         )
     }
 }
