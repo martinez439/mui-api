@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node index.js",
     "server": "nodemon",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "client": "npm start --prefix client",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "author": "Michael M",
   "license": "ISC",
