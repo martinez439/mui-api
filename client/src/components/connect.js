@@ -13,8 +13,7 @@ class ConnectQb extends Component {
             <div>
            
                 
-                <button onClick={() => {
-            window.location = window.open(
+                <button onClick={() => {(
               'https://pacific-wildwood-91690.herokuapp.com/login'); 
             
                 }}
