@@ -22,10 +22,10 @@ const ngrok = process.env.NGROK_ENABLED === 'true' ? require('ngrok') : null;
 app.use(cors());
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
+  app.use(express.static("client/public"));
   // Set static folder
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+    res.sendFile(path.resolve(__dirname, "client", "public", "index.html"));
   });
 }
 
