@@ -15,7 +15,7 @@ class ConnectQb extends Component {
                 
                 <button onClick={() => {
             window.location = window.location.href
-              ? 'https://pacific-wildwood-91690.herokuapp.com/' 
+              ? 'https://pacific-wildwood-91690.herokuapp.com/login' 
               : 'https://pacific-wildwood-91690.herokuapp.com/' }
                 }
                 style={{padding: '8px', 
