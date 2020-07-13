@@ -19,15 +19,19 @@ const ngrok = process.env.NGROK_ENABLED === 'true' ? require('ngrok') : null;
 //const queryString = require('query-string');
 
 
+app.use(cors());
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+  // Set static folder
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
+
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-app.use(cors(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
-  res.header("Access-Control-Allow-Methods", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-}));
 
 const uri = process.env.ATLAS_URI;
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology:true });
@@ -39,15 +43,6 @@ connection.once("open", () => {
 
 //app.use(express.static(path.join(__dirname, '/public')));
 //serve static assets if in production
-
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-  // Set static folder
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  });
-}
-
 
 
 
