@@ -228,7 +228,7 @@ export default class ReminderList extends Component {
                         alignContent: 'center', 
                         alignItems:'center', 
                         justifyContent:'center'}}> Reminders</h1> 
-                      {this.remList()}
+                    {/*  {this.remList()} */}
                       </Paper>
                       </Grid>
                       <Grid item>
