@@ -238,7 +238,7 @@ export default class ReminderList extends Component {
                         alignContent: 'center', 
                         alignItems:'center', 
                         justifyContent:'center'}}>Completed</h1>
-                       {this.doneList()} 
+                  {/*     {this.doneList()} */}
                       </Paper>
                       
                       </Grid>
