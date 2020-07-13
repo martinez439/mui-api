@@ -20,12 +20,12 @@ const ngrok = process.env.NGROK_ENABLED === 'true' ? require('ngrok') : null;
 
 
 app.use(cors());
-
+//serve static assets if in production
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/public"));
+  app.use(express.static("client/build"));
   // Set static folder
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "public", "index.html"));
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
 
