@@ -14,10 +14,10 @@ class ConnectQb extends Component {
            
                 
                 <button onClick={() => {
-            window.location = window.open.href
-              ? 'https://pacific-wildwood-91690.herokuapp.com/login' 
-              : 'https://pacific-wildwood-91690.herokuapp.com/' }
-                }
+            window.location = window.open(
+              'https://pacific-wildwood-91690.herokuapp.com/login'); 
+            
+                }}
                 style={{padding: '8px', 
                 'fontSize': '20px', 
                 'marginTop': '1rem', 
