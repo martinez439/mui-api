@@ -4,12 +4,12 @@ let NewReminder = require('../models/reminderModel');
 
 
 
-router.route('/').get(cors(),(req, res, next) => {
+router.route('/').get((req, res) => {
   NewReminder.find({isComplete: false})
     .then(reminders => res.json(reminders))
     .catch(err => res.status(400).json('Error: ' + err));
 });
-router.route('/unchecked').get( cors(), (req, res, next) => {
+router.route('/unchecked').get((req, res) => {
   NewReminder.find({isComplete: true})
     .then(reminders => res.json(reminders))
     .catch(err => res.status(400).json('Error: ' + err));
