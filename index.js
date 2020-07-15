@@ -436,6 +436,7 @@ app.get('/disconnect', function (req, res) {
 });
 
 const remindersRouter = require("./routes/reminders");
+remindersRouter.all('*', cors());
 app.use("/reminders", remindersRouter);
 
 
